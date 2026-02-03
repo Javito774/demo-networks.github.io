@@ -1,3 +1,8 @@
+import {
+  CidrBitGridDiagram,
+  CidrIpPrefixDiagram,
+  CidrMaskDiagram,
+} from "@/components/cidr-diagrams";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 
@@ -45,6 +50,9 @@ export default function DocumentacionPage() {
             </a>
             <a className="hover:text-foreground" href="#cidr">
               CIDR y máscaras
+            </a>
+            <a className="hover:text-foreground" href="#notacion">
+              Notación CIDR
             </a>
             <a className="hover:text-foreground" href="#prefijos">
               Prefijos y tamaños
@@ -246,6 +254,63 @@ export default function DocumentacionPage() {
                 /32 significa 32 bits en 1. En IPv4 esto indica una única dirección.
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="notacion" className="grid gap-6">
+        <h2 className="text-2xl font-semibold">Notación CIDR: cómo se interpreta</h2>
+        <div className="grid gap-4 text-sm text-muted-foreground">
+          <p>
+            La notación CIDR une una dirección base con un prefijo. En
+            192.168.1.0/24 la IP marca el inicio del bloque y el /24 indica que
+            24 bits son de red. El resto queda para hosts.
+          </p>
+          <ul className="list-disc space-y-2 pl-5">
+            <li>
+              La IP base representa la red (bits de host en 0).
+            </li>
+            <li>
+              El prefijo define cuántos bits están “fijos” para identificar la red.
+            </li>
+            <li>
+              La máscara es el prefijo expresado en decimal (por ejemplo /24 →
+              255.255.255.0).
+            </li>
+            <li>
+              El rango va desde la IP de red hasta el broadcast (salvo /31 y /32).
+            </li>
+          </ul>
+          <p>
+            Estos esquemas resumen la lectura visual del prefijo, con colores para
+            distinguir red y hosts.
+          </p>
+        </div>
+
+        <div className="grid gap-4">
+          <div className="rounded-2xl border border-border/60 bg-muted/30 p-5">
+            <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+              IP + prefijo
+            </div>
+            <div className="mt-4 flex items-center justify-center">
+              <CidrIpPrefixDiagram baseIp="192.168.1.0" prefix={24} />
+            </div>
+          </div>
+
+          <div className="rounded-2xl border border-border/60 bg-muted/30 p-5">
+            <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+              Bits de red vs hosts
+            </div>
+            <CidrBitGridDiagram prefix={24} />
+          </div>
+        </div>
+
+        <div className="rounded-2xl border border-border/60 bg-muted/30 p-5">
+          <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+            Máscara equivalente en decimal
+          </div>
+          <div className="mt-4">
+            <CidrMaskDiagram prefix={24} />
           </div>
         </div>
       </section>

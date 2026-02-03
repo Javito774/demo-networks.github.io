@@ -2,6 +2,11 @@
 
 import { useMemo, useState } from "react";
 import { calculateNetwork } from "@/lib/network";
+import {
+  CidrBitGridDiagram,
+  CidrIpPrefixDiagram,
+  CidrMaskDiagram,
+} from "@/components/cidr-diagrams";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -21,7 +26,7 @@ export function NetworkCalculator() {
   );
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+    <div className="grid gap-6 lg:grid-cols-[0.85fr_1.15fr]">
       <Card className="border-border/60 shadow-sm">
         <CardHeader>
           <CardTitle className="text-xl">Parámetros de red</CardTitle>
@@ -143,6 +148,38 @@ export function NetworkCalculator() {
                     hasta {LIST_LIMIT} IPs.
                   </p>
                 )}
+              </div>
+
+              <Separator />
+
+              <div className="grid gap-4">
+                <div className="rounded-2xl border border-border/60 bg-muted/30 p-4">
+                  <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                    IP + prefijo
+                  </div>
+                  <div className="mt-4">
+                    <CidrIpPrefixDiagram
+                      baseIp={result.network}
+                      prefix={result.maskBits}
+                    />
+                  </div>
+                </div>
+
+                <div className="rounded-2xl border border-border/60 bg-muted/30 p-4">
+                  <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                    Bits de red vs hosts
+                  </div>
+                  <CidrBitGridDiagram prefix={result.maskBits} />
+                </div>
+
+                <div className="rounded-2xl border border-border/60 bg-muted/30 p-4">
+                  <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                    Máscara equivalente en decimal
+                  </div>
+                  <div className="mt-4">
+                    <CidrMaskDiagram prefix={result.maskBits} />
+                  </div>
+                </div>
               </div>
             </div>
           )}
