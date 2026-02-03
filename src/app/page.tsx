@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Home() {
   return (
     <main className="mx-auto flex w-full max-w-6xl flex-col gap-12 px-6 py-12">
@@ -15,18 +17,18 @@ export default function Home() {
             dashboard interactivo listo para explorar.
           </p>
           <div className="flex flex-wrap gap-3">
-            <a
+            <Link
               href="/playground"
               className="rounded-full bg-primary px-5 py-2 text-sm font-medium text-primary-foreground hover:opacity-90"
             >
               Abrir playground
-            </a>
-            <a
+            </Link>
+            <Link
               href="/documentacion"
               className="rounded-full border border-border/60 px-5 py-2 text-sm font-medium text-foreground hover:bg-muted"
             >
               Ver documentación
-            </a>
+            </Link>
           </div>
         </div>
       </section>
