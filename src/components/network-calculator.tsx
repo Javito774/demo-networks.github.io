@@ -26,7 +26,7 @@ export function NetworkCalculator() {
   );
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[0.85fr_1.15fr]">
+    <div className="grid gap-6 lg:grid-cols-[0.7fr_1.3fr]">
       <Card className="border-border/60 shadow-sm">
         <CardHeader>
           <CardTitle className="text-xl">Parámetros de red</CardTitle>
@@ -133,25 +133,6 @@ export function NetworkCalculator() {
 
               <Separator />
 
-              <div className="grid gap-2">
-                <div className="flex items-center justify-between">
-                  <span className="text-muted-foreground">Listado de IPs</span>
-                  <Badge variant="outline">{result.ipList.length}</Badge>
-                </div>
-                {result.ipList.length > 0 ? (
-                  <div className="max-h-48 overflow-auto rounded-md border border-border/60 bg-muted/30 p-3 text-xs">
-                    {result.ipList.join(" · ")}
-                  </div>
-                ) : (
-                  <p className="text-xs text-muted-foreground">
-                    El rango es grande. Mostramos la lista solo cuando la red tiene
-                    hasta {LIST_LIMIT} IPs.
-                  </p>
-                )}
-              </div>
-
-              <Separator />
-
               <div className="grid gap-4">
                 <div className="rounded-2xl border border-border/60 bg-muted/30 p-4">
                   <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
@@ -180,6 +161,25 @@ export function NetworkCalculator() {
                     <CidrMaskDiagram prefix={result.maskBits} />
                   </div>
                 </div>
+              </div>
+
+              <Separator />
+
+              <div className="grid gap-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-muted-foreground">Listado de IPs</span>
+                  <Badge variant="outline">{result.ipList.length}</Badge>
+                </div>
+                {result.ipList.length > -1 ? (
+                  <div className="max-h-49 overflow-auto rounded-md border border-border/60 bg-muted/30 p-3 text-xs">
+                    {result.ipList.join(" · ")}
+                  </div>
+                ) : (
+                  <p className="text-xs text-muted-foreground">
+                    El rango es grande. Mostramos la lista solo cuando la red tiene
+                    hasta {LIST_LIMIT} IPs.
+                  </p>
+                )}
               </div>
             </div>
           )}
